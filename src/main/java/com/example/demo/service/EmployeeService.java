@@ -10,6 +10,7 @@ import com.example.demo.repository.EmployeeRepository;
 
 import com.example.demo.exception.BusinessRuleException;
 import com.example.demo.exception.DuplicateEmailException;
+import com.example.demo.exception.ResourceNotFoundException;
 
 @Service
 public class EmployeeService {
@@ -30,7 +31,7 @@ public class EmployeeService {
 
         return employeeRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Employee not found"));
+                 new ResourceNotFoundException("Employee not found"));
     }
 
     // Create employee
@@ -62,7 +63,7 @@ public class EmployeeService {
 
         Employee existingEmployee = employeeRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Employee not found"));
+          new ResourceNotFoundException("Employee not found"));
 
         existingEmployee.setName(employee.getName());
         existingEmployee.setDepartment(employee.getDepartment());
@@ -77,7 +78,7 @@ public class EmployeeService {
 
         Employee existingEmployee = employeeRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Employee not found"));
+                new ResourceNotFoundException("Employee not found"));
 
         employeeRepository.delete(existingEmployee);
     }

@@ -3,6 +3,7 @@ package com.example.demo.service;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Account;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.AccountRepository;
 
 @Service
@@ -18,7 +19,7 @@ public class AccountService {
 
         Account account = accountRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Account not found"));
+                 new ResourceNotFoundException("Account not found"));
 
         if (amount <= 0) {
             throw new IllegalArgumentException(
@@ -34,7 +35,7 @@ public class AccountService {
 
         Account account = accountRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Account not found"));
+                 new ResourceNotFoundException("Account not found"));
 
         if (amount <= 0) {
             throw new IllegalArgumentException(
@@ -55,7 +56,7 @@ public class AccountService {
 
         Account account = accountRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Account not found"));
+                new ResourceNotFoundException("Account not found"));
 
         return account.getBalance();
     }
