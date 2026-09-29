@@ -11,15 +11,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
+	private static final Logger logger =
+	        LoggerFactory.getLogger(GlobalExceptionHandler.class);
     // 404 - Resource Not Found
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFoundException(
             ResourceNotFoundException ex,
             WebRequest request) {
-
+    	logger.warn("Resource not found: {}", ex.getMessage());
         ErrorResponse response = new ErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.NOT_FOUND.value(),
@@ -49,6 +53,7 @@ public class GlobalExceptionHandler {
                                 error.getDefaultMessage()
                         )
                 );
+        logger.warn("Validation failed: {}", errors);
 
         ErrorResponse response = new ErrorResponse(
                 LocalDateTime.now(),

@@ -94,4 +94,10 @@ public class EmployeeController {
 
         return ResponseEntity.noContent().build();
     }
+    
+    @GetMapping("/test-error")
+    public String testError() {
+
+        throw new RuntimeException("This is a test internal exception");
+    }
 }
