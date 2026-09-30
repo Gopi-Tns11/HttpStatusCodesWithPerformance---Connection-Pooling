@@ -8,6 +8,13 @@ spring:
     username: sa
     password:
 
+    hikari:
+      pool-name: HikariPool-HttpMethods
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      max-lifetime: 1800000
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -21,4 +28,10 @@ spring:
       enabled: true
 
 server:
-  port: 8080
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics

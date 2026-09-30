@@ -143,4 +143,18 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(response);
     }
+    
+    @ExceptionHandler(DatabaseConnectionException.class)
+    public ResponseEntity<Map<String, Object>> handleDatabaseConnection(
+            DatabaseConnectionException ex) {
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("status", 503);
+        response.put("message", "Database connection pool is temporarily unavailable");
+
+        return ResponseEntity
+                .status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(response);
+    }
 }
